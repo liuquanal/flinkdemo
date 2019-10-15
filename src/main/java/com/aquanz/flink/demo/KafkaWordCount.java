@@ -6,6 +6,11 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
+import org.apache.flink.streaming.connectors.redis.RedisSink;
+import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolConfig;
+import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommand;
+import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommandDescription;
+import org.apache.flink.streaming.connectors.redis.common.mapper.RedisMapper;
 import org.apache.flink.util.Collector;
 
 import java.util.Properties;
@@ -22,6 +27,7 @@ public class KafkaWordCount {
     private final static String KAFKA_GROUP = "jk-c";
     private final static String KAFKA_TOPIC = "jk";
 
+    private final static String REDIS_SERVER = "127.0.0.1";
 
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -39,8 +45,13 @@ public class KafkaWordCount {
         DataStream<Tuple2<String, Integer>> counts = stream.flatMap(new LineSplitter())
                 .keyBy(0).sum(1);
 
+        // 打印结果
         System.out.println("word count:");
         counts.print().setParallelism(1);
+
+        // 插入redis
+        FlinkJedisPoolConfig conf = new FlinkJedisPoolConfig.Builder().setHost(REDIS_SERVER).build();
+        counts.addSink(new RedisSink<>(conf, new RedisExampleMapper()));
 
         env.execute("WordCount from Kafka");
     }
@@ -55,6 +66,20 @@ public class KafkaWordCount {
                     out.collect(new Tuple2<>(token, 1));
                 }
             }
+        }
+    }
+
+    public static final class RedisExampleMapper implements RedisMapper<Tuple2<String, Integer>> {
+        public RedisCommandDescription getCommandDescription() {
+            return new RedisCommandDescription(RedisCommand.HSET, "words");
+        }
+
+        public String getKeyFromData(Tuple2<String, Integer> data) {
+            return data.f0;
+        }
+
+        public String getValueFromData(Tuple2<String, Integer> data) {
+            return data.f1.toString();
         }
     }
 }
