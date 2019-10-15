@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="897e6eff-54d0-4bba-8e4b-df674d1bdc11" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/aquanz/flink/demo/SocketWindowWordCount$LineSplitter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/aquanz/flink/demo/SocketWindowWordCount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aquanz/flink/demo/SocketWindowWordCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aquanz/flink/demo/KafkaWordCount.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +37,7 @@
   <component name="ProjectId" id="1SFTMb6nF938gnu0cMXtd2woLB3" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../canal-20191016" />
     <property name="settings.editor.selected.configurable" value="settings.saveactions" />
@@ -55,8 +55,8 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="SocketWindowWordCount" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.aquanz.flink.demo.SocketWindowWordCount" />
+    <configuration name="KafkaWordCount" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.aquanz.flink.demo.KafkaWordCount" />
       <module name="flinkdemo" />
       <extension name="coverage">
         <pattern>
@@ -70,7 +70,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SocketWindowWordCount" />
+        <item itemvalue="Application.KafkaWordCount" />
       </list>
     </recent_temporary>
   </component>

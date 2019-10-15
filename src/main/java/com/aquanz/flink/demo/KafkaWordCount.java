@@ -11,11 +11,11 @@ import org.apache.flink.util.Collector;
 import java.util.Properties;
 
 /**
- * 基于socket数据流的词频统计
+ * 基于Kafka的词频统计
  *
  * @author a.q.z 2019/10/16 上午12:52
  */
-public class SocketWindowWordCount {
+public class KafkaWordCount {
 
     private final static String KAFKA_SERVER = "localhost:9092";
     private final static String KAFKA_ZOOKEEPER = "localhost:2181";
